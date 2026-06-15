@@ -7,7 +7,6 @@ const wawaRoutes = require('../routes/wawaRoutes.js')
 
 router.use("/wawa", wawaRoutes);
 
-
 router.get('/test', (req, res) =>
     res.json({message: "res-message-0"})
 );

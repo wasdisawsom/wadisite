@@ -390,11 +390,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     
     document.getElementById("darkMode").onclick = async function() {
-        document.getElementById("theme").href = "./styles/darkmode.css"
+        document.getElementById("theme").href = "/wawa/darkmode"
     }
 
     document.getElementById("lightMode").onclick = async function() {
-        document.getElementById("theme").href = "./styles/lightmode.css"
+        document.getElementById("theme").href = "/wawa/lightmode"
     }
 
 })
