@@ -1,0 +1,403 @@
+async function main() {
+    try {
+        const rls = require("readline-sync")
+        while (true) {
+
+            let test = String(rls.question('Enter 1 for encoding, 2 for decoding, and anything else to end the program\nInput: '))
+
+            if (test == '1') {
+                output = await encode(String(rls.question('Enter string to be encoded\nInput: ')))
+            } else if (test == '2') {
+                output = await decode(String(rls.question('Enter wawa to be decoded\nInput: ')))
+            } else {
+                console.log("Thank you for using wawa encoder, and a fair wawa to you!")
+                return
+            }
+            console.log(String(output) + "\n")
+
+        }
+    } catch (e) {console.log(e)}
+}
+
+async function encode(ui) {
+        let baseTen = await alphaandmoretoten(ui) // converting the input to base 10 
+        let numdivisor = BigInt(Math.floor(Math.random() * 27) + 1) // generating a random number between 1 and 27 as a divisor
+        let wadivisor = await tentowa(numdivisor - 1n) // making into 3bit base 3 wawa
+        wadivisor = " ".repeat(3-wadivisor.length) + wadivisor // making sure it reserves 3 bits to be wawa
+        let modulo = baseTen % BigInt(numdivisor) // getting the modulo to ensure the base 10 user input can be divided cleanly by divisor
+        let wadulo = await tentowa(modulo) // making into 3bit base 3 wawa
+        wadulo = " ".repeat(3-wadulo.length) + wadulo // making sure it reserves 3 bits to be wawa
+        baseTen -= modulo // subtracting the modulo to ensure it can be divided cleanly
+        baseTen /= numdivisor // dividing it to add complexity so its harder to crack
+        let encodedInput = await tentowa(baseTen) // converting input to wawa
+        let output = "wa" + wadulo + encodedInput + wadivisor + "wa" // adding the modulo and divisor as keys to decode the wawa
+
+    return output
+}
+
+async function decode(wawa){
+
+    let tempbool = false
+
+    if(wawa.slice(0,6) == "legacy") {  // check to see if user wants to decode legacy wawa messages
+        tempbool = true
+        wawa = wawa.slice(6)
+    }
+
+    while (!wawa.startsWith("wa") || !wawa.endsWith("wa")) {
+        if (wawa.length == 0) {
+            break
+        }
+        if (!wawa.startsWith("wa")) {
+            wawa = wawa.slice(1)
+        } else if (!wawa.endsWith("wa")) {
+            wawa = wawa.slice(0,-1)
+        }
+    }
+
+    let splitInputArray = [await watoten(wawa.slice(2,5)), await watoten(wawa.slice(5,-5)), await watoten(wawa.slice(-5,-2))] 
+    // splitInputArray[0,1,2] are modulo, message, divisor respectively and are converted to base 10
+
+    let baseTen = splitInputArray[0] + splitInputArray[1] * (splitInputArray[2]+1n)
+    // wawa input decoded to base 10
+
+    let output = ''
+
+    if (tempbool) {
+        output = await tentoalpha(baseTen)    // base 10 input converted to base 96
+    } else {
+        output = await tentoalphaandmore(baseTen)   //base 10 input converted to base 96
+    }
+
+
+    return output
+}
+
+async function alphatoten(input) { // function to turn base 27 to base 10
+
+    const regex = /^[a-z ]+$/ // regular expression to filter the 27 characters
+    inputArray = String(input).toLowerCase().split("") // splitting the string into an array
+    let filteredArray = []
+    let purgedArray = []
+    for (const char of inputArray) {
+        if (regex.test(char)) {
+            filteredArray.push(char) // running the array through a filter 
+        } else {
+            purgedArray.push(char) // logging the purged characters
+        }
+    }
+    
+    console.log(purgedArray)
+    
+    // console.log(filteredArray)
+
+    for (index = 0; index < filteredArray.length; index++) { // loop to convert the characters to base 27 in number in the array
+        if (filteredArray[index].charCodeAt(0) == 32) {
+            filteredArray[index] = 0
+        } else {
+            filteredArray[index] = filteredArray[index].charCodeAt(0) - 96
+        }
+    } 
+
+    // console.log(filteredArray)
+
+    let output = 0n // making the output a bigint for accuracy
+
+    for (const value of filteredArray) { // converting the base 27 numbers into base 10 and adding them to the output
+        output = output * 27n + BigInt(value)
+    }
+
+    return output
+    
+}
+
+async function tentoalpha(input) { // function to turn base 10 to base 27
+
+    const rawArray = [] // array to store the converted base 27 numbers
+
+    while (input > 0n) {
+        rawArray.push(Number(input % 27n)) 
+        input /= 27n
+    }
+
+    rawArray.reverse() // using push and reverse instead of unshift for optimisation reasons
+
+    let alphaArray = []
+
+    for (const value of rawArray) { // converting the elements in the array back to alpha char
+        if (value == 0) {
+            alphaArray.push(" ")
+        } else {
+            alphaArray.push(String.fromCharCode(value+96))
+        }
+    }
+    
+    let output = alphaArray.join("") // joining all the elements together
+    
+    return output
+    
+}
+
+async function tentowa(input) { // function to turn base 10 to base 3
+
+    const rawArray = [] // array to store the converted base 3 numbers
+
+    while (input > 0n) { // converting into base 3 and storing the numerical values in the array
+        rawArray.push(Number(input % 3n))
+        input /= 3n
+    }
+
+    rawArray.reverse()
+
+    let alphaArray = []
+
+    // console.log(rawArray)
+
+    for (const value of rawArray) { // convert the base 3 numerical values into wawa
+        if (value == 0) {
+            alphaArray.push(" ")
+        } else if (value == 1) {
+            alphaArray.push("a")
+        } else {
+            alphaArray.push("w")
+        }
+    }
+
+    let output = alphaArray.join("") // joining the array together
+
+    return output
+
+}
+
+async function watoten(input) { // function to turn base 3 to base 10
+
+    const regex = /^[wa ]+$/ // regular expression to filter the 27 characters
+
+    input = input.toLowerCase()
+
+    inputArray = String(input).split("") // splitting the string into an array
+
+
+    let filteredArray = []
+
+    for (const char of inputArray) {
+        if (regex.test(char)) {
+            filteredArray.push(char) // running the array through a filter 
+        }
+    }
+
+    let output = 0n
+
+    for (const char of filteredArray) { // convert base 3 to base 10
+        output = output * 3n
+        if (char == "w") {
+            output += 2n
+        } else if (char == "a") {
+            output += 1n
+        }
+    }
+    return output
+}
+
+async function alphaandmoretoten(input) { // function to turn base 96 to base 10
+
+    const regex = /^[ -~\n]$/ // regular expression to filter the 27 characters
+    let inputArray = String(input).split("") // splitting the string into an array
+    let filteredArray = []
+    let purgedArray = []
+    for (const char of inputArray) {
+        if (regex.test(char)) {
+            filteredArray.push(char) // running the array through a filter 
+        } else {
+            purgedArray.push(char) // logging the purged characters
+        }
+    }
+    
+    // console.log(purgedArray)
+    
+    // console.log(filteredArray)
+
+    for (index = 0; index < filteredArray.length; index++) { // loop to convert the characters to base 96 in number in the array
+        if (filteredArray[index] == "\n") {
+            filteredArray[index] = 95
+        } else {
+            filteredArray[index] = filteredArray[index].charCodeAt(0) - 32
+        }
+    } 
+
+    // console.log(filteredArray)
+
+    let output = 0n // making the output a bigint for accuracy
+
+    for (const value of filteredArray) { // converting the base 27 numbers into base 10 and adding them to the output
+        output = output * 96n + BigInt(value)
+    }
+
+    return output
+    
+}
+
+async function tentoalphaandmore(input) { // function to turn base 10 to base 96
+
+    const rawArray = [] // array to store the converted base 96 numbers
+
+    while (input > 0n) {
+        rawArray.push(Number(input % 96n))  
+        input /= 96n
+    }
+
+    rawArray.reverse() // using push and reverse instead of unshift for optimisation reasons
+
+    let alphaArray = []
+
+    for (const value of rawArray) { // converting the elements in the array back to characters
+        if (value == 95) {
+            alphaArray.push("\n")
+        } else {
+            alphaArray.push(String.fromCharCode(value+32))
+        }
+    }
+    
+    let output = alphaArray.join("") // joining all the elements together
+    
+    return output
+    
+}
+
+
+main()
+
+try {
+document.addEventListener('DOMContentLoaded', async function() {
+    
+    document.getElementById('enter').onclick = async function() {
+
+        const input = document.getElementById("input").value
+        const action = document.querySelector('input[name="actionSelection"]:checked').value
+
+        if (action == "encode") {
+            document.getElementById("output").textContent = await encode(input)
+        } else {
+            document.getElementById("output").textContent = await decode(input)
+        }
+    }
+
+    document.getElementById("encode").onclick = async function() {
+
+        document.getElementById("instruction").textContent = "Enter words to convert to wawa."
+        document.getElementById("enter").textContent = "Convert!"
+        document.getElementById("showResult").textContent = "Converted text:"
+        document.getElementById("encodel").textContent = "<encode>"
+        document.getElementById("decodel").textContent = "<decode>"
+
+        if (document.getElementById("copyBtn").disabled == true) {
+            document.getElementById("copyBtn").textContent = "Copied to clipboard."
+        } else {
+        document.getElementById("copyBtn").textContent = "Copy to clipboard."
+        }
+
+        if (document.getElementById("clear").disabled == true) {
+            document.getElementById("clear").textContent = "Boxes cleared!"
+        } else {
+        document.getElementById("clear").textContent = "Clear boxes!"
+        }
+
+        document.getElementById("darkMode1").textContent = "[Dark mode]"
+        document.getElementById("lightMode1").textContent = "[Light mode]"
+        
+    }
+
+    document.getElementById("decode").onclick = async function() {
+
+        document.getElementById("instruction").textContent = await encode("Enter wawa to convert to words.")
+        document.getElementById("enter").textContent = await encode("Convert!")
+        document.getElementById("showResult").textContent = await encode("Converted text:")
+        document.getElementById("encodel").textContent = await encode("<encode>")
+        document.getElementById("decodel").textContent = await encode("<decode>")
+
+        if (document.getElementById("copyBtn").disabled == true) {
+            document.getElementById("copyBtn").textContent = await encode("Copied to clipboard.")
+        } else {
+        document.getElementById("copyBtn").textContent = await encode("Copy to clipboard.")
+        }
+
+        if (document.getElementById("clear").disabled == true) {
+            document.getElementById("clear").textContent = await encode("Boxes cleared!")
+        } else {
+        document.getElementById("clear").textContent = await encode("Clear boxes!")
+        }
+        
+        document.getElementById("darkMode1").textContent = await encode("[Dark mode]")
+        document.getElementById("lightMode1").textContent = await encode("[Light mode]")
+
+    }
+
+    document.getElementById("copyBtn").onclick = async function() {
+
+        const copiedText = document.getElementById("output").value
+        await navigator.clipboard.writeText(copiedText)
+        copyBtn.disabled = true
+
+        const action = document.querySelector('input[name="actionSelection"]:checked').value
+        const originalText = document.getElementById("copyBtn").textContent
+
+        if (action == "encode")  {
+            copyBtn.textContent = "Copied to clipboard."
+        } else {
+            copyBtn.textContent = await encode("Copied to clipboard.")
+        }
+
+        setTimeout(async () => {
+            if (action == "encode" && action != document.querySelector('input[name="actionSelection"]:checked').value) {
+                copyBtn.textContent = await encode("Copy to clipboard.")
+            } else if (action == "decode" && action != document.querySelector('input[name="actionSelection"]:checked').value) {
+                copyBtn.textContent = "Copy to clipboard."
+            } else {
+                copyBtn.textContent = originalText
+            }
+            copyBtn.disabled = false
+        }, 1000)
+
+
+    }
+        
+    document.getElementById("clear").onclick = async function() {
+
+        document.getElementById("output").textContent = ""
+        document.getElementById("input").value = ""
+        clear.disabled = true
+
+        const action = document.querySelector('input[name="actionSelection"]:checked').value
+        const originalText = document.getElementById("clear").textContent
+
+        if (action == "encode")  {
+            clear.textContent = "Boxes cleared!"
+        } else {
+            clear.textContent = await encode("Boxes cleared!")
+        }
+
+        setTimeout(async () => {
+            if (action == "encode" && action != document.querySelector('input[name="actionSelection"]:checked').value) {
+                clear.textContent = await encode("Clear boxes!")
+            } else if (action == "decode" && action != document.querySelector('input[name="actionSelection"]:checked').value) {
+                clear.textContent = "Clear boxes!"
+            } else {
+                clear.textContent = originalText
+            }
+            clear.disabled = false
+        }, 1000)
+
+    }
+    
+    document.getElementById("darkMode").onclick = async function() {
+        document.getElementById("theme").href = "./styles/darkmode.css"
+    }
+
+    document.getElementById("lightMode").onclick = async function() {
+        document.getElementById("theme").href = "./styles/lightmode.css"
+    }
+
+})
+} catch (error) {
+    console.log(error)
+}

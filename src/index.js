@@ -1,9 +1,13 @@
-const app = require("express")();
+const express = require("express");
+const app = express()
 
-app.get('/', (req, res) =>
-    res.json({message : "Hello World"})
-);
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
-const port = process.env.PORT
+const mainRoutes = require('./routes/mainRoutes');
+app.use('/', mainRoutes);
 
-app.listen(port, () => console.log(`app listening on http://localhost:${port}`))
+
+const port = process.env.PORT || 31415;
+
+app.listen(port, () => console.log(`app listening on http://localhost:${port}`));
