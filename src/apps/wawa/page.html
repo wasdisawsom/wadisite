@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/wawa/eepyscug" type="image"/>
+        <title>wawa</title>
+        <script src="/wawa/logix"></script> 
+        <link id="theme" rel="stylesheet" href="/wawa/darkmode">
+    </head>
+    <body>
+
+        <input type="radio" id="encode" name="actionSelection" value="encode" checked>
+        <label id="encodel" for="encode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">&lt;encode&gt;</label>
+        <br>
+        <input type="radio" id="decode" name="actionSelection" value="decode" >
+        <label id="decodel" for="decode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">&lt;decode&gt;</label>
+
+        <p id="instruction" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Enter words to convert to wawa.</p>
+
+        <textarea id="input" rows="8" cols="60" style="max-width: 100%" autofocus></textarea>
+        <br>
+        <button type="button" class="box" id="enter" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Convert!</button>
+        <br><br>
+        <button type="button" class="box" id="clear" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Clear boxes!</button>
+        <br>
+        <p id="showResult" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Converted text:</p>
+        <button type="button" class="box" id="copyBtn" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Copy to clipboard.</button>
+        <br><br>
+        <textarea id="output" rows="8" cols="60" readonly style="max-width: 100%"></textarea>
+
+        <br>
+        <input type="radio" id="darkMode" name="themeSelection" value="dark" checked>
+        <label id="darkMode1" for="darkMode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">[Dark mode]</label>
+        <br>
+        <input type="radio" id="lightMode" name="themeSelection" value="light" >
+        <label id="lightMode1" for="lightMode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">[Light mode]</label>
+    </body>
+</html>
