@@ -4,13 +4,11 @@ const path = require("path");
 const router = express.Router();
 
 router.get("/", (req, res) => 
-    res.sendFile(path.join(__dirname, "../apps/wawa/page.html"))
+    res.sendFile(path.join(__dirname, "../apps/home/home.html"))
 );
 
 router.get(/.*/, (req, res) => 
-    res.redirect("/wawa")
+    res.redirect("/")
 );
-
-
 
 module.exports = router;
