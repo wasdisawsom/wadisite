@@ -1,0 +1,9 @@
+main#text {
+    max-width:100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+main#input {
+    max-width: 100%;
+}

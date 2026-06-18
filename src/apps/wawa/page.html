@@ -3,37 +3,39 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/wawa/icon" type="image"/>
+        <link rel="icon" href="/wawa/images/eepyscug.png" type="image"/>
         <title>wawa</title>
-        <script src="/wawa/logix"></script> 
-        <link id="theme" rel="stylesheet" href="/wawa/darkmode">
+        <script src="/wawa/js/logix.js"></script> 
+        <link id="styles" rel="stylesheet" href="/wawa/styles/styles.css">
+        <link id="theme" rel="stylesheet" href="/wawa/styles/darkmode.css">
     </head>
     <body>
+        <main>
+            <input type="radio" id="encode" name="actionSelection" value="encode" checked>
+            <label id="encodel"class="text" for="encode" >&lt;encode&gt;</label>
+            <br>
+            <input type="radio" id="decode" name="actionSelection" value="decode" >
+            <label id="decodel"class="text" for="decode" >&lt;decode&gt;</label>
 
-        <input type="radio" id="encode" name="actionSelection" value="encode" checked>
-        <label id="encodel" for="encode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">&lt;encode&gt;</label>
-        <br>
-        <input type="radio" id="decode" name="actionSelection" value="decode" >
-        <label id="decodel" for="decode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">&lt;decode&gt;</label>
+            <p id="instruction" class="text">Enter words to convert to wawa.</p>
 
-        <p id="instruction" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Enter words to convert to wawa.</p>
+            <textarea id="input" class="input" rows="8" cols="60" autofocus></textarea>
+            <br>
+            <button type="button" id="enter" class="box" class="text">Convert!</button>
+            <br><br>
+            <button type="button" id="clear" class="box" class="text">Clear boxes!</button>
+            <br>
+            <p id="showResult" class="text">Converted text:</p>
+            <button type="button" id="copyBtn" class="box" class="text">Copy to clipboard.</button>
+            <br><br>
+            <textarea id="output" class="input" rows="8" cols="60" readonly></textarea>
 
-        <textarea id="input" rows="8" cols="60" style="max-width: 100%" autofocus></textarea>
-        <br>
-        <button type="button" class="box" id="enter" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Convert!</button>
-        <br><br>
-        <button type="button" class="box" id="clear" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Clear boxes!</button>
-        <br>
-        <p id="showResult" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Converted text:</p>
-        <button type="button" class="box" id="copyBtn" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">Copy to clipboard.</button>
-        <br><br>
-        <textarea id="output" rows="8" cols="60" readonly style="max-width: 100%"></textarea>
-
-        <br>
-        <input type="radio" id="darkMode" name="themeSelection" value="dark" checked>
-        <label id="darkMode1" for="darkMode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">[Dark mode]</label>
-        <br>
-        <input type="radio" id="lightMode" name="themeSelection" value="light" >
-        <label id="lightMode1" for="lightMode" style="white-space:pre; max-width: 100%; overflow-wrap: anywhere; white-space: normal;">[Light mode]</label>
+            <br>
+            <input type="radio" id="darkMode" name="themeSelection" value="dark" checked>
+            <label id="darkMode1" class="text" for="darkMode">[Dark mode]</label>
+            <br>
+            <input type="radio" id="lightMode" name="themeSelection" value="light" >
+            <label id="lightMode1" class="text" for="lightMode">[Light mode]</label>
+        </main>
     </body>
 </html>
