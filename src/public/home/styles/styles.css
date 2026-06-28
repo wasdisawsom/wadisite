@@ -1,69 +1,122 @@
 @font-face {
-    font-family: 'Hack';
-    src: url('fonts/hack-Regular.tff') format('tff');
+    font-family: "Hack";
+    src: url("fonts/hack-Regular.tff") format("tff");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hack';
-    src: url('fonts/hack-Bold.tff') format('tff');
+    font-family: "Hack";
+    src: url("fonts/hack-Bold.tff") format("tff");
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hack';
-    src: url('fonts/hack-Italic.tff') format('tff');
+    font-family: "Hack";
+    src: url("fonts/hack-Italic.tff") format("tff");
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hack';
-    src: url('fonts/hack-BoldItalic.tff') format('tff');
+    font-family: "Hack";
+    src: url("fonts/hack-BoldItalic.tff") format("tff");
     font-weight: bold;
     font-style: italic;
 }
 
 html, body {
-    font-family: 'Hack', monospace;
+    overflow: hidden;
     margin: 0;
     height: 100%;
     background-color: #333333;
 }
 
 header {
+    font-family: "Hack", monospace;
     height: 70px;
     background-color: #444444;
     list-style-type: none;
-    overflow: hidden;
 }
 
-header li {
+header li.home {
     vertical-align: middle;
     height: inherit;
-    float: left
+    float: left;
+    border-right-style: solid;
+    border-right-width: 3px;
+    border-right-color: #333333;
 }
 
-header li img {
-    margin-top: 10px;
+header li.home a img {
+    margin-top: 15px;
+    padding-left: 15px;
     float: left;
-    height: 50px;
+    height: 40px;
     aspect-ratio: 1;
 }
 
-header li a {
+header li.home a, header li.apps-dropdown p.dropdownbutton{
     height: inherit;
-    padding: 0px 10px 0px 10px;
-    font-size: 33px;
-    display: block;
+    display: flex;
     color: #EEEEEE;
-    text-align: center;
     text-decoration: none;
+}
+
+header li.home a p {
+    margin: 0;
+    height: inherit;
+    text-align: center;
     font-weight: bolder;
+    padding: 15px 15px 0px 10px;
+    font-size: 30px;
 }
 
 header li a:hover {
     background-color: #555555
+}
+
+header li.apps-dropdown {
+    float: right;
+    position: relative;
+    height: inherit;
+    border-left-style: solid;
+    border-left-width: 3px;
+    border-left-color: #333333;
+}
+
+header li.apps-dropdown p.dropdownbutton {
+    margin: 0;
+    padding: 25px 35px 0px 35px;
+    height: 45px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+header li.apps-dropdown p.dropdownbutton:hover {
+    background-color: #555555;
+}
+
+div.dropdowncontents {
+    width: 100%;
+    position: absolute;
+    display: none;
+}
+
+header li.apps-dropdown:hover div.dropdowncontents {
+    display: block;
+}
+
+div.dropdowncontents a {
+    display: flex;
+    background-color: #444444;
+    width: 100%;
+    text-decoration: none;
+    color: #EEEEEE;
+    justify-content: center;
+    overflow-wrap: anywhere;
+    text-align: center;
+    margin-top: 3px;
+    padding: 4px 0px 4px 0px;
 }
