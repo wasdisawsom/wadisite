@@ -269,7 +269,9 @@ main()
 
 try {
 document.addEventListener('DOMContentLoaded', async function() {
-    
+
+    document.head.insertBefore(document.getElementById("headerStyles"), document.getElementById("theme"))
+
     document.getElementById('enter').onclick = async function() {
 
         const input = document.getElementById("input").value
