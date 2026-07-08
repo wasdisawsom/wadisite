@@ -35,20 +35,19 @@ html {
 }
 
 body {
-    overflow-x: hidden;
+    overflow-x: wrap;
     height: auto;
     margin: 0;
     padding: 0;
-
 }
 
-div#content {
+main {
     margin: 0;
-    padding-top: 70px;
+    padding: 80px 10px 10px 10px;
     height: auto;
 }
 
-div#content p {
+main p {
     color: #EEEEEE;
     font-family: "Hack", monospace;
     margin: 0;
