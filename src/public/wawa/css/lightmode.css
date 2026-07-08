@@ -2,3 +2,31 @@ body, input, textarea, button{
     background-color: #CCCCCC; 
     color: #000000;
 }
+
+#input {
+    border-color: #333333
+}
+
+#output {
+    border-color: #AAAAAA
+}
+
+header li.apps-dropdown {
+    border-left-color: #CCCCCC;
+}
+
+header li.home {
+    border-right-color: #CCCCCC;
+}
+
+header, div.dropdowncontents a{
+    background-color: #AAAAAA;
+}
+
+header li a:hover, header li.apps-dropdown p.dropdownbutton:hover{
+    background-color: #999999
+}
+
+header li.home a, header li.apps-dropdown p.dropdownbutton, div.dropdowncontents a {
+    color: #333333
+}

@@ -2,3 +2,11 @@ body, input, textarea, button{
     background-color: #333333; 
     color: #CCCCCC;
 }
+
+#input {
+    border-color: #AAAAAA
+}
+
+#output {
+    border-color: #555555
+}

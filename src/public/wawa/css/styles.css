@@ -44,6 +44,10 @@ main {
     padding: 80px 10px 10px 10px
 }
 
+input, textarea, button {
+    font-family: "Hack", monospace;
+}
+
 main#text {
     max-width:100%;
     overflow-wrap: anywhere;
@@ -52,4 +56,14 @@ main#text {
 
 main#input {
     max-width: 100%;
+}
+
+#input, #output {
+    border: 1px;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+#output {
+    outline: 0;
 }

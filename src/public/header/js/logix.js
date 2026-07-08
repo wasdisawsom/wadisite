@@ -15,6 +15,7 @@ try {
 
         const styleLink = document.createElement("link");
 
+        styleLink.id = "headerStyles"
         styleLink.rel = "stylesheet";
         styleLink.href = "/header/css/header.css";
 
