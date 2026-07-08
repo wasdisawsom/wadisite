@@ -26,8 +26,22 @@
     font-style: italic;
 }
 
-html, body {
+html {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    overflow-x: wrap;
+    height: auto;
+    margin: 0;
     font-family: "Hack", monospace;
+}
+
+main {
+    padding: 80px 10px 10px 10px
 }
 
 main#text {
