@@ -390,14 +390,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     
     document.getElementById("darkMode").onclick = async function() {
-        document.getElementById("theme").href = "/wawa/styles/darkmode.css"
+        document.getElementById("theme").href = "/wawa/css/darkmode.css"
     }
 
     document.getElementById("lightMode").onclick = async function() {
-        document.getElementById("theme").href = "/wawa/styles/lightmode.css"
+        document.getElementById("theme").href = "/wawa/css/lightmode.css"
     }
 
 })
 } catch (error) {
-    console.log(error)
+    console.error("Error occured somewhere, please yell at wadi on discord to fix it\nError: \n" + error)
 }
